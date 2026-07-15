@@ -26,5 +26,4 @@ export default defineConfig({
       "react-native/Libraries/ReactNative/AppContainer": shim("AppContainer.js"),
     },
   },
-  server: { host: "0.0.0.0", port: 5173, strictPort: true },
 });
