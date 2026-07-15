@@ -13,7 +13,6 @@
     "@react-navigation/native-stack": "7.17.10",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-native": "0.76.9",
     "react-native-safe-area-context": "5.8.0",
     "react-native-screens": "4.26.1",
     "react-native-web": "0.19.13"
@@ -23,13 +22,11 @@
     "vite": "7.3.6",
     "vite-plugin-rnw": "0.0.11"
   },
-  "//": "Exact pins because Nodepod's installer ignores the lockfile and can't resolve ranges against a version list. flow-parser: jscodeshift requests \"0.*\", which Nodepod can't enumerate. vite: \"^7.3.1\" floats to latest (8.x), and Vite 8 bundles rolldown whose Nodepod wasm binding is the threaded (SharedArrayBuffer) variant, which crashes under enableSharedArrayBuffer:false. 7.3.6 is the last pre-rolldown Vite (rollup + esbuild). resolutions=yarn, overrides=npm.",
+  "//": "Nodepod's installer ignores lockfiles AND resolutions/overrides, and can't enumerate version-range wildcards, so every dep must be an exact pin AND every transitive wildcard must be eliminated at the source. The real 'react-native' package is intentionally NOT installed: vite-plugin-rnw aliases `react-native` -> `react-native-web` at build time, so RN is never bundled. Installing real react-native only drags in @react-native/codegen -> jscodeshift -> flow-parser@'0.*', which Nodepod can't resolve and which breaks the install. vite is pinned to 7.3.6 (last pre-rolldown release; Vite 8 bundles rolldown whose Nodepod wasm binding needs SharedArrayBuffer, unavailable under enableSharedArrayBuffer:false).",
   "resolutions": {
-    "flow-parser": "0.322.0",
     "vite": "7.3.6"
   },
   "overrides": {
-    "flow-parser": "0.322.0",
     "vite": "7.3.6"
   }
 }
